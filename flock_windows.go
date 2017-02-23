@@ -24,7 +24,7 @@ func Lock(f *os.File) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procLockFileEx.Addr(),
-		6,
+		6, // Number of arguments.
 		uintptr(f.Fd()),
 		uintptr(LOCKFILE_EXCLUSIVE_LOCK|LOCKFILE_FAIL_IMMEDIATELY),
 		uintptr(RESERVED),
@@ -44,13 +44,13 @@ func Unlock(f *os.File) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procUnlockFileEx.Addr(),
-		5,
+		5, // Number of arguments.
 		uintptr(f.Fd()),
 		uintptr(RESERVED),
 		uintptr(LOCKLOW),
 		uintptr(LOCKHIGH),
 		uintptr(unsafe.Pointer(&ol)),
-		0,
+		0, // 6th argument is not used.
 	)
 	if e1 != 0 {
 		return e1
