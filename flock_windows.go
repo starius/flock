@@ -14,10 +14,10 @@ var (
 
 const (
 	LOCKFILE_FAIL_IMMEDIATELY = 1
-	LOCKFILE_EXCLUSIVE_LOCK = 2
-	RESERVED = 0
-	LOCKLOW = 0
-	LOCKHIGH = 1
+	LOCKFILE_EXCLUSIVE_LOCK   = 2
+	RESERVED                  = 0
+	LOCKLOW                   = 0
+	LOCKHIGH                  = 1
 )
 
 func Lock(f *os.File) error {
