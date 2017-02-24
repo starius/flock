@@ -1,7 +1,6 @@
 package flock
 
 import (
-	"os"
 	"syscall"
 	"unsafe"
 )
@@ -20,12 +19,12 @@ const (
 	LOCKHIGH                  = 1
 )
 
-func Lock(f *os.File) error {
+func Lock(fd uintptr) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procLockFileEx.Addr(),
 		6, // Number of arguments.
-		uintptr(f.Fd()),
+		fd,
 		uintptr(LOCKFILE_EXCLUSIVE_LOCK|LOCKFILE_FAIL_IMMEDIATELY),
 		uintptr(RESERVED),
 		uintptr(LOCKLOW),
@@ -40,12 +39,12 @@ func Lock(f *os.File) error {
 	return nil
 }
 
-func Unlock(f *os.File) error {
+func Unlock(fd uintptr) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procUnlockFileEx.Addr(),
 		5, // Number of arguments.
-		uintptr(f.Fd()),
+		fd,
 		uintptr(RESERVED),
 		uintptr(LOCKLOW),
 		uintptr(LOCKHIGH),

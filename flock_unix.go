@@ -3,14 +3,13 @@
 package flock
 
 import (
-	"os"
 	"syscall"
 )
 
-func Lock(f *os.File) error {
-	return syscall.Flock(int(f.Fd()), syscall.LOCK_EX|syscall.LOCK_NB)
+func Lock(fd uintptr) error {
+	return syscall.Flock(int(fd), syscall.LOCK_EX|syscall.LOCK_NB)
 }
 
-func Unlock(f *os.File) error {
-	return syscall.Flock(int(f.Fd()), syscall.LOCK_UN|syscall.LOCK_NB)
+func Unlock(fd uintptr) error {
+	return syscall.Flock(int(fd), syscall.LOCK_UN|syscall.LOCK_NB)
 }
