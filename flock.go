@@ -5,9 +5,9 @@ import (
 )
 
 func LockFile(f *os.File) error {
-	return Lock(f.Fd())
+	return LockFd(f.Fd())
 }
 
 func UnlockFile(f *os.File) error {
-	return Unlock(f.Fd())
+	return UnlockFd(f.Fd())
 }

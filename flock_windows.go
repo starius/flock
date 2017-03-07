@@ -19,7 +19,7 @@ const (
 	LOCKHIGH                  = 1
 )
 
-func Lock(fd uintptr) error {
+func LockFd(fd uintptr) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procLockFileEx.Addr(),
@@ -39,7 +39,7 @@ func Lock(fd uintptr) error {
 	return nil
 }
 
-func Unlock(fd uintptr) error {
+func UnlockFd(fd uintptr) error {
 	var ol syscall.Overlapped
 	r1, _, e1 := syscall.Syscall6(
 		procUnlockFileEx.Addr(),

@@ -6,10 +6,10 @@ import (
 	"syscall"
 )
 
-func Lock(fd uintptr) error {
+func LockFd(fd uintptr) error {
 	return syscall.Flock(int(fd), syscall.LOCK_EX|syscall.LOCK_NB)
 }
 
-func Unlock(fd uintptr) error {
+func UnlockFd(fd uintptr) error {
 	return syscall.Flock(int(fd), syscall.LOCK_UN|syscall.LOCK_NB)
 }
