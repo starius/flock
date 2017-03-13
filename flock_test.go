@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestLock(t *testing.T) {
+func TestLockFile(t *testing.T) {
 	f, err := ioutil.TempFile("", "flock-test-")
 	if err != nil {
 		t.Fatalf("Unable to create temp file: %s.", err)
