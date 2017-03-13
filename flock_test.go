@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	f, err := os.Open("FILENAME")
+	f, err := os.Open(FILENAME)
 	if err != nil {
 		log.Fatalf("Unable to open file: %s.", err)
 	}
@@ -68,7 +68,8 @@ func TestExclusiveness(t *testing.T) {
 		t.Fatalf("Unable to lock file: %s.", err)
 	}
 	defer UnlockFile(f)
-	code := strings.Replace(lockFileCode, "FILENAME", f.Name(), 1)
+	quotedFn := fmt.Sprintf("%q", f.Name())
+	code := strings.Replace(lockFileCode, "FILENAME", quotedFn, 1)
 	result, err := runGo(code)
 	if err != nil {
 		t.Fatalf("Unable to run child process: %s. %s", err, result)
