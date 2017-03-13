@@ -81,3 +81,18 @@ func TestExclusiveness(t *testing.T) {
 		)
 	}
 }
+
+func TestLockFd(t *testing.T) {
+	f, err := ioutil.TempFile("", "flock-test-")
+	if err != nil {
+		t.Fatalf("Unable to create temp file: %s.", err)
+	}
+	defer os.Remove(f.Name())
+	defer f.Close()
+	if err := LockFd(f.Fd()); err != nil {
+		t.Fatalf("Unable to lock file: %s.", err)
+	}
+	if err := UnlockFd(f.Fd()); err != nil {
+		t.Fatalf("Unable to unlock file: %s.", err)
+	}
+}
